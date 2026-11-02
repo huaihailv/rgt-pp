@@ -1,4 +1,4 @@
-# RGT · Benchmark Atlas
+# RGT
 
 QwenRGT 训练与评测展示网页：LIBERO-Plus、LIBERO-PRO、VLABench，四类泛化与三种机制分析。
 
