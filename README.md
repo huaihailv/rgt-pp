@@ -23,3 +23,12 @@ QwenRGT 训练与评测展示网页：LIBERO-Plus、LIBERO-PRO、VLABench，四�
 `media/pro2-d07-rollout.mp4` 与 `media/pro2-d07-initial.png` 是本项目 QwenFAST MoT6 30k 的 Pro 2.0 D07 接入检查（2026-11-03，Spatial task 0，seed 7，init 0）。第 34 步真实触发相机偏移；视频仅展示机制，不是全量 benchmark 成绩。原始证据位于协调工作区 `artifacts/libero_robustness_20261103/pro2_smoke`。
 
 Pro 1.0 官方定义含 Environment；当前固定资产版本接入仅四类，网页明确保留此差异。VLABench Track 5 的训练／测试任务划分由实验者指定。
+
+## 2026-11-03 · 两套域内泛化入口
+
+02 对应 `libero-generalization` 与 `vlabench-generalization`，分别使用各自数据训练的 checkpoint，不包含跨数据集零样本任务。
+
+当前 FAST30k 训练清单 40 任务；LIBERO-90 去除 3 个重叠指令后保留 87 个任务。完整 LIBERO CPU 计划为 25,405 次执行，尚未进行新全量策略评测。VLABench 评测代码已实现，仍待仿真资产、相机映射及域内 checkpoint 的闭环核验；动作留出任务没有官方固定切分，不虚构覆盖。
+
+统一结果：逐任务成功率、视频、四类能力；缺失为 N/A。代码和运行说明：
+https://github.com/huaihailv/starVLA-RGT/blob/codex/libero-robustness-eval/examples/RobustnessEval/GENERALIZATION.md
