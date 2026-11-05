@@ -35,3 +35,31 @@
 .eval-entry-grid h3{font-size:clamp(19px,2vw,27px);margin:12px 0;overflow-wrap:anywhere}
 .eval-entry-grid p{margin:10px 0;line-height:1.7}.eval-entry-grid small{color:#617569;line-height:1.6;display:block}
 @media(max-width:760px){.eval-entry-grid{grid-template-columns:1fr}}
+
+/* One benchmark, one row of subsets, one real task at a time. */
+#explore [hidden]{display:none!important}
+.gallery-heading{display:flex;justify-content:space-between;gap:24px;align-items:center;margin-bottom:26px}
+.gallery-heading h3{font-size:28px;margin:5px 0 8px}.gallery-heading p{font-size:14px;color:var(--muted);margin:0;max-width:740px}
+.gallery-heading>a{white-space:nowrap;font-size:12px;color:#526d54}
+.subset-tabs{display:flex;overflow-x:auto;border:1px solid var(--line);border-radius:8px;background:#edf1e6;scrollbar-width:thin;margin-bottom:28px}
+.subset-tabs button{flex:1 0 0;min-width:0;border:0;border-right:1px solid var(--line);padding:16px 7px;background:transparent;color:#536b5b;line-height:1.5}
+.subset-tabs button:last-child{border-right:0}.subset-tabs button span{display:block;font-size:14px;font-weight:700;white-space:nowrap}
+.subset-tabs button small{display:block;font-size:10px;margin-top:6px;line-height:1.4;min-height:28px;overflow-wrap:normal}
+.subset-tabs button[aria-selected=true]{background:var(--ink);color:#f7faef}
+.subset-tabs button:hover:not([aria-selected=true]){background:#dfe9d4}
+.subset-tabs button:focus-visible{outline-offset:-4px;outline:2px solid #a4ce71}
+.subset-panel:focus-visible{outline:2px solid #83a665;outline-offset:6px}
+.subset-example{display:grid;grid-template-columns:1.1fr 1fr;align-items:start;gap:32px}
+.example-frame{margin:0;min-width:0;background:#eef1e7;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.example-frame img{display:block;width:100%;height:auto;object-fit:contain;background:#e9eee2}
+.example-frame figcaption{padding:13px 16px;font-size:12px;font-weight:600;line-height:1.7}.example-frame figcaption span{display:block;font-size:11px;color:var(--muted);font-weight:400}
+.example-description{min-width:0}.example-overline{font-size:10px;letter-spacing:1.6px;color:#668059;margin:0 0 10px}.example-description h4{font-size:22px;line-height:1.45;margin:0 0 20px}
+.task-instruction{border-left:3px solid #91af67;padding:4px 0 4px 17px;margin-bottom:22px}.task-instruction span{font-size:11px;color:var(--muted)}.task-instruction p{font-size:17px;line-height:1.65;margin:7px 0;overflow-wrap:anywhere}
+.example-change{font-size:14px;color:#526755;line-height:1.8}.example-change b{display:block;color:var(--ink);font-size:12px;margin-bottom:5px}
+.example-note{font-size:12px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+.example-provenance{font-size:11px;color:var(--muted);margin-top:20px}.example-provenance summary{cursor:pointer}.example-provenance p{overflow-wrap:anywhere}
+.variant-choice{display:flex;gap:14px;align-items:center;background:#f1f4ea;padding:12px 16px;border-radius:7px;margin-bottom:24px;font-size:12px}
+.variant-choice select{font:inherit;font-size:13px;color:var(--ink);padding:9px 32px 9px 12px;border:1px solid #bdcbb5;border-radius:5px;background:#fffef9;min-width:230px;max-width:100%}.variant-choice>span{margin-left:auto;color:var(--muted)}
+.example-unavailable{padding:35px;background:#f2f3eb;border:1px dashed #b7c4ad;border-radius:8px;min-height:240px;max-width:100%}.example-unavailable>span{font-size:11px;color:var(--muted)}.example-unavailable h4{font-size:23px;margin:12px 0}.example-unavailable p{max-width:650px;font-size:14px}
+.condition-pair{font-size:11px;background:#f0f3e8;border-radius:5px;padding:12px 15px}.condition-pair>div+div{margin-top:10px}.condition-pair dt{color:var(--muted)}.condition-pair dd{margin:2px 0 0;overflow-wrap:anywhere}
+@media(max-width:760px){.gallery-heading{display:block}.gallery-heading>a{display:inline-block;margin-top:12px}.gallery-heading h3{font-size:24px}.subset-tabs{margin-inline:-2px}.subset-tabs button{flex:1 0 112px;padding:13px 8px}.subset-example{grid-template-columns:1fr;gap:24px}.example-description h4{font-size:21px}.task-instruction p{font-size:16px}.variant-choice{flex-wrap:wrap;gap:8px}.variant-choice select{width:100%;min-width:0}.variant-choice>span{display:none}.example-unavailable{padding:24px}.benchmark-tabs{overflow-x:auto}.benchmark-tabs button{min-width:85px}}
