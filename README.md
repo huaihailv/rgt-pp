@@ -38,9 +38,9 @@ https://github.com/huaihailv/starVLA-RGT/blob/musa/examples/RobustnessEval/GENER
 
 Explore 保留第一行五个 benchmark 标签，第二行按 subset 切换。PLUS 的七类在宽屏上同排，窄屏横向滚动；PRO 1.0 五类、CF 四主类及 Focused 对照、VLABench 六个 tracks 各有独立入口。PRO 2.0 六个维度下可选择全部22静态/20动态扰动（不含已删除D19），每种扰动一例。
 
-`media/subsets/cases.json` 与同目录62张PNG是实际任务素材：PLUS7、PRO1四类、PRO2共42、CF主类4、VLABench5。PLUS/PRO图片取自本项目已完成Qwen+OFT评测视频的第一帧；CF来自50任务CPU环境检查；VLABench来自T1/2/3/4/6的add_condiment固定案例环境检查。CF和VLABench图像不是模型闭环成绩；动态PRO2图片为干预前初始观察，触发步另行说明。未挑选成功轨迹来暗示模型表现。
+`media/subsets/cases.json` 与同目录63张PNG是实际任务素材：PLUS7、PRO1四类、PRO2共42、CF主类4 + Focused1、VLABench5。PLUS/PRO图片取自本项目已完成Qwen+OFT评测视频的第一帧；CF主类来自50任务CPU环境检查，Focused来自独立的一次无策略CPU场景渲染；VLABench来自T1/2/3/4/6的add_condiment固定案例环境检查。CF和VLABench图像不是模型闭环成绩；动态PRO2图片为干预前初始观察，触发步另行说明。未挑选成功轨迹来暗示模型表现。
 
-仍缺真实素材的三组明确保留说明：PRO1 Environment（当前固定资产版本缺配套任务）、CF Spatial-Focused（尚未采样）、VLABench T5（未指定训练/留出清单）。不以其他subset图片冒充。原有02部分标注为2026-11-03历史快照，不作为当前运行进度。
+仍缺真实素材的两组明确保留说明：PRO1 Environment（当前固定资产版本缺配套任务）、VLABench T5（未指定训练/留出清单）。不以其他subset图片冒充。原有02部分标注为2026-11-03历史快照，不作为当前运行进度。
 
 任务元数据与图片来源：LIBERO-Plus、LIBERO-PRO、LIBERO-Pro2.0、VLA-CF、VLABench的官方仿真器与本项目观测；第三方模型/纹理/场景权利归原作者。图片只是输入示例，不是新的成功率结果。
 

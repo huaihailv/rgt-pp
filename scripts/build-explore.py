@@ -7,7 +7,7 @@ rows=json.loads((ROOT/'media/subsets/cases.json').read_text())
 lookup={(r['benchmark'],r['subset']):r for r in rows}
 plus=[('Objects Layout','物体布局','目标或干扰物布局发生变化，需要重新定位操作对象。'),('Camera Viewpoints','相机视角','相机位置或方向改变，任务目标不变。'),('Robot Initial States','机器人初态','从不同的机械臂初始状态开始执行。'),('Language Instructions','语言指令','用不同表达描述同一个操作目标。'),('Light Conditions','光照条件','改变光照，仍需识别并操作指定物体。'),('Background Textures','背景纹理','改变桌面或背景外观，保持对任务目标的关注。'),('Sensor Noise','传感器噪声','图像含噪声或退化，考查观测鲁棒性。')]
 pro=[('object','物体变化','替换或改变目标物体的外观、实例或几何。'),('swap','位置变化','调整物体位置，策略需要重新定位。'),('lan','语言改写','指令换一种表达，操作目标保持一致。'),('task','目标切换','保留场景，改换指令所指向的操作目标。'),('environment','环境变化','官方第五类；当前固定资产版本未提供配套任务，暂不能选取真实案例。')]
-cf=[('spatial','Spatial','沿用空间关系场景，按新指令选择目标。'),('object','Object','同一场景改拿另一种已有物体。'),('long','Long','在多阶段任务场景中改变指令目标。'),('ood','OOD','指令指向原 LIBERO 训练之外的物体。'),('focused','Spatial-Focused','官方对照移除原训练目标物体；当前尚未采样，暂不展示替代画面。')]
+cf=[('spatial','Spatial','沿用空间关系场景，按新指令选择目标。'),('object','Object','同一场景改拿另一种已有物体。'),('long','Long','在多阶段任务场景中改变指令目标。'),('ood','OOD','指令指向原 LIBERO 训练之外的物体。'),('focused','Spatial-Focused','移除原训练目标物体，观察不再受旧目标干扰的场景。')]
 vla=[('T1','域内基准','按照明确的物体名称完成任务。'),('T2','未见物体','在未见类别或实例条件下完成任务。'),('T3','常识推理','依据味道、用途等常识线索，确定需要的调味料。'),('T4','语义理解','从上下文而非直接物体名中推断操作目标。'),('T5','跨任务留出','需要先确定训练与留出任务清单；没有官方固定切分，暂未选择案例。'),('T6','未见纹理','任务不变，场景使用新的纹理条件。')]
 snames=['目标移位','容器移位','支撑高度','物体换位','路径限制','替换实例','功能几何','尺寸比例','开口间隙','无关杂物','相似干扰物','持续遮挡','表面外观','场景对比度','相机外参','相机内参','关节初态','标定偏差','观测退化','固定延迟','指令改写','桌面纹理']
 dnames={1:'抓前目标移动',2:'抓后目标移动',3:'容器占用',4:'动态遮挡',5:'路径障碍',6:'干扰物移动',7:'相机偏移',8:'相机失效',9:'光照变化',10:'丢帧／冻结',11:'时间戳偏移',12:'延迟突增',13:'动作时序抖动',14:'命令丢失／重复',15:'过期动作块',16:'短时动作接管',17:'抓取失败',18:'物体掉落',20:'关节位移',21:'指令澄清'}
@@ -25,6 +25,7 @@ def case(r,label,desc):
   dynamic=code.startswith('D');desc=('执行中触发：' if dynamic else '从任务开始时施加：')+variant_names[code]+'。'
   extra='<p class="example-note">'+('画面为干预前的初始观察。'+(f'此例记录的触发步为 {r["trigger_step"]}。' if r.get('trigger_step') is not None else '是否触发需结合执行轨迹判断。') if dynamic else '画面为施加静态扰动后的初始观察。')+'</p>'
  if r['benchmark']=='cf':extra=f'<dl class="condition-pair"><div><dt>新指令条件</dt><dd>{e(r["faithful"])}</dd></div><div><dt>原训练目标条件</dt><dd>{e(r["biased"])}</dd></div></dl>'
+ if r['benchmark']=='cf' and code=='focused':extra='<p class="example-note">这是移除原训练目标物体的独立对照场景。仅展示真实渲染，不代表 Focused 全量评测已完成。</p>'
  cameras='四视角场景' if r['benchmark']=='vla' else '外部相机 / 腕部相机'
  details=' · '.join(f'{k}: {r[k]}' for k in ['suite','task_id','init_id','seed'] if k in r)
  return f'''<div class="subset-example"><figure class="example-frame"><img src="media/subsets/{e(r['image'])}" alt="{e(label)}：{e(ins)}" loading="lazy"><figcaption>{e(cameras)}<span>{e(r['source'])}</span></figcaption></figure><div class="example-description"><p class="example-overline">ONE TASK / {e(code)}</p><h4>{e(label)} · 任务样例</h4><div class="task-instruction"><span>实际英文指令</span><p lang="en">{e(ins)}</p></div><p class="example-change"><b>这一组测什么</b>{e(desc)}</p>{extra}<details class="example-provenance"><summary>任务来源与编号</summary><p>{e(r['task_name'])}</p><p>{e(details)}</p><p>所选场景用于解释任务输入，不以单例推断整个 subset 的表现。</p></details></div></div>'''
@@ -52,4 +53,4 @@ for i,(k,label) in enumerate(labels.items()):
  parts.append(panel(k,entries));parts.append('</article>')
 parts.append('</div></div><p class="footnote">图像来自本项目真实评测或环境检查，已按来源标注。初始画面不代表任务成功；动态干预的初始观察不展示后续变化。未采样的分组单独保留说明。</p></section>')
 p=ROOT/'index.html';s=p.read_text();s=re.sub(r'<section id="explore">.*?</section>',lambda _: '\n'.join(parts),s,count=1,flags=re.S);p.write_text(s)
-print('Built 62 real cases across 29 subset tabs; 3 explicitly unavailable groups.')
+print('Built 63 real cases across 29 subset tabs; 2 explicitly unavailable groups.')

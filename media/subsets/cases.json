@@ -794,5 +794,18 @@
     "task_name": "add_condiment",
     "init_id": 0,
     "source": "真实环境检查 · 四视角 · 非策略评测"
+  },
+  {
+    "benchmark": "cf",
+    "subset": "focused",
+    "image": "cf-focused.png",
+    "instruction": "pick up the cookie box and place it on the plate",
+    "task_name": "01-pick_up_the_cookie_box_and_place_it_on_the_plate",
+    "task_id": 0,
+    "seed": 7,
+    "init_id": 0,
+    "source": "真实环境渲染 · 无策略动作",
+    "faithful": "on cookies_1 plate_1",
+    "biased": "原训练目标物体已移除；此对照不统计其成功率"
   }
 ]
